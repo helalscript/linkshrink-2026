@@ -16,7 +16,7 @@ class LinkResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-        'short_url' => url('/') . '/' . $this->code,
+        'short_url' => url('/api/v1/links') . '/' . $this->code,
         'original_url' => $this->url,
         'visits' => $this->visits,
         'created_at' => $this->created_at->toDateTimeString(),
