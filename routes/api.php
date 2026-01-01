@@ -11,6 +11,8 @@ Route::get('/user', function (Request $request) {
 
 Route::post('v1/links', [LinkController::class, 'store']);
 Route::get('v1/links/{code}', [LinkController::class, 'redirect']);
+Route::get('v1/links', [LinkController::class, 'getAllLinks']);
+
 // Route::get('v1/check-api-work', function () {
 //     return response()->json(['message' => 'API is working fine.'], 200);
 // });

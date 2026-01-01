@@ -36,11 +36,11 @@ class LinkController extends Controller
 
     public function redirect(string $code): RedirectResponse
     {
-        try{
-        $link = Link::where('code', $code)->firstOrFail();
+        try {
+            $link = Link::where('code', $code)->firstOrFail();
 
-        $link->increment('visits');
-        return redirect()->away($link->url, 301);
+            $link->increment('visits');
+            return redirect()->away($link->url, 301);
         } catch (Exception $e) {
             return redirect()->away(url('/'), 302);
         }
@@ -53,5 +53,21 @@ class LinkController extends Controller
         } while (Link::where('code', $code)->exists());
 
         return $code;
+    }
+
+    public function getAllLinks(): JsonResponse
+    {
+        try {
+            $links = Link::get();
+            return response()->json([
+                'message' => 'Links retrieved successfully.',
+                'data' => LinkResource::collection($links),
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while retrieving the links.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
